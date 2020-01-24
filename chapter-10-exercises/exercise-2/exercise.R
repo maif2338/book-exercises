@@ -5,6 +5,8 @@
 # "Employee"
 
 employees <- paste("employee", 1:100 )
+
+
 print(employees)
 # Create a vector of 100 random salaries for the year 2017
 # Use the `runif()` function to pick random numbers between 40000 and 50000
@@ -14,6 +16,7 @@ salaries_2017 <- runif(100, 40000, 50000)
 # (A negative number represents a salary decrease due to corporate greed)
 # Again use the `runif()` function to pick 100 random numbers in that range.
 adjustments <- runif(100, -5000, 10000)
+
 
 # Create a data frame `salaries` by combining the 3 vectors you just made
 # Remember to set `stringsAsFactors=FALSE`!
