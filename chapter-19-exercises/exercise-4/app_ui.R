@@ -7,22 +7,26 @@ library("shiny")
 # Define a variable `intro_panel` for your first page. It should be a
 # `tabPanel()` with a title "Introduction" to represent the first tab.
 # This layout will contain the following elements:
-  
+intro_panel <- tabPanel(
+  title = "Introduction",
+
   # A `titlePanel()` with the text "Income Inequality"
-  
+  titlePanel("Income Inequality"),
 
   # A paragraph `p()` describing with the text: "The below diagram was created
   # by the New York Times to illustrate the increasing level of inequality in
   # the US."
+  p("The below diagram was created by the New York Times to illustrate the income ineqaulity"),
   
-
   # An image `img()` to display. This content should have a `src` attribute of
   # "inequality.png" (which will refer to the file in the `www/` folder).
-  
+  img(src = "inequality.png", alt = "Example NYT chart"),
 
   # A paragraph containing a hyperlink `a()` to the source of the article at
   # https://www.nytimes.com/interactive/2017/08/07/opinion/leonhardt-income-inequality.html
-
+  p(
+    a(href = "https://www.nytimes.com/interactive/2017/08/07/opinion/leonhardt-income-inequality.html", "(source)"),
+  ),
 
   # A paragraph containing a 1-2 sentence description of what the diagram
   # shows. Your paragraph should include both `strong()` and emphasized `em()`
@@ -56,16 +60,34 @@ library("shiny")
 
   # A `sidebarLayout()` to create two columns.
   # The sidebar layout will contain elements:
-
+sidebar_content <- sidebarPanel(
+  sliderInput(inputId = "percentile", label = "Income Percentile",
+              min = 0, max = 100, value = c(0,100))
+),
     # Your `sidebar_content`
 
     # Your `main_content`
-    
-
+    main_content <- mainPanel(
+      plotOutput(outputId = "plot"),
+      p(
+        "data from",
+        a(herf = "http://gabriel-zucman.eu/usdina/")
+      ),
+      sidebar_content(
+        sidebar_content,
+        main_content
+      )
+    )
+)
 # Finally, define a `ui` variable, assigning it a `navbarPage()` layout.
 # You will use `shinyUI()` to render this variable (in `app.R`)
 # Give the layout a title of "Income Inequality".
 # The layout should include the following elements:
 # - Your `intro_panel`
 # - Your `growth_panel`
+ui <- navabarPage(
+  title = "Income Inequality",
+  intro_panel,
+  growth_panel
+)
 
